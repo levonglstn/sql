@@ -1,4 +1,4 @@
--- nombre de shooting par an + par pays
+-- number of photo shootings per country and per year
 WITH cte1 AS (
 
 SELECT name AS country_shooting,
@@ -13,7 +13,7 @@ WHERE date_shoot is not null
 GROUP BY country_shooting, year_shooting
 ORDER BY country_shooting ASC),
 
--- nombre de photographes par an + par pays
+-- number of newly created photographers per year and per country
 cte2 AS (
 
 SELECT name AS country_photographer,
@@ -27,7 +27,7 @@ INNER JOIN `meero-gcp-poc.test_dataset.country`AS t3
 GROUP by country_photographer, year_photographer
 ORDER BY country_photographer ASC)
 
--- final query
+-- final with a join and photographers/shootings ratio
 
 SELECT country_shooting, year_shooting, number_of_shootings, nb_new_photographers,
 CASE WHEN running_total_photographers IS NULL THEN 0 ELSE running_total_photographers END AS running_total,

@@ -33,19 +33,19 @@ events_captured as (
 cte1 as (
 
   select distinct 
-			user_id
+	user_id
   from events_captured
   union all
   select 
-			user_id
+	user_id
   from buyers
 ),
 
 cte2 as (
 
   select 
-			user_id, 
-			count(*) AS id_count --- count of orders by user_id
+	user_id, 
+	count(*) AS id_count --- count of orders by user_id
   from cte1
   group by 1
 ),

@@ -1,12 +1,14 @@
 -- nombre de shooting par an + par pays
 WITH cte1 AS (
 
-SELECT name AS country_shooting, EXTRACT(year FROM date_shoot), AS year_shooting, COUNT(*) AS number_of_shootings
+SELECT name AS country_shooting,
+        EXTRACT(year FROM date_shoot) AS year_shooting,
+         COUNT(*) AS number_of_shootings
 FROM `meero-gcp-poc.test_dataset.shooting` AS t4
 INNER JOIN `meero-gcp-poc.test_dataset.address` AS t5
-ON t4.address_id = t5.id
+   ON t4.address_id = t5.id
 INNER JOIN `meero-gcp-poc.test_dataset.country` AS t6
-ON t5.country_code = t6.country_code
+   ON t5.country_code = t6.country_code
 WHERE date_shoot is not null
 GROUP BY country_shooting, year_shooting
 ORDER BY country_shooting ASC),
@@ -14,7 +16,9 @@ ORDER BY country_shooting ASC),
 -- nombre de photographes par an + par pays
 cte2 AS (
 
-SELECT name AS country_photographer, extract(year from date_creation) AS year_photographer, count(*) AS number_of_new_photographers
+SELECT name AS country_photographer,
+      EXTRACT(year from date_creation) AS year_photographer,
+      COUNT(*) AS number_of_new_photographers
 FROM `meero-gcp-poc.test_dataset.photographer` AS t1
 INNER JOIN `meero-gcp-poc.test_dataset.address` AS t2
    ON t1.reference_address_id = t2.id
